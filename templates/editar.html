@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Aviso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="topo">
+    <div class="logo">
+        <div class="icone">✝</div>
+        <div>
+            <h1>Editar Aviso</h1>
+            <p>Christian Congregation in Japan</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('admin') }}">Voltar ao painel</a>
+        <a href="{{ url_for('sair') }}">Sair</a>
+    </nav>
+</header>
+
+<main class="admin-container">
+    <section class="form-card">
+        <h2>Editar Aviso</h2>
+
+        <form method="POST">
+            <input
+                type="text"
+                name="titulo"
+                maxlength="100"
+                value="{{ aviso['titulo'] }}"
+                required
+            >
+
+            <select name="categoria" required>
+                <option value="GERAL" {% if aviso['categoria'] == 'GERAL' %}selected{% endif %}>Geral</option>
+                <option value="JOVENS" {% if aviso['categoria'] == 'JOVENS' %}selected{% endif %}>Jovens</option>
+                <option value="SANTA CEIA" {% if aviso['categoria'] == 'SANTA CEIA' %}selected{% endif %}>Santa Ceia</option>
+                <option value="ORQUESTRA" {% if aviso['categoria'] == 'ORQUESTRA' %}selected{% endif %}>Orquestra</option>
+                <option value="COOPERADORES" {% if aviso['categoria'] == 'COOPERADORES' %}selected{% endif %}>Cooperadores</option>
+            </select>
+
+            <textarea
+                name="mensagem"
+                rows="6"
+                required
+            >{{ aviso['mensagem'] }}</textarea>
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </section>
+</main>
+
+</body>
+</html>

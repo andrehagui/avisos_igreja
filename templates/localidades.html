@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Localidades</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="topo">
+    <div class="logo">
+        <div class="icone">✝</div>
+
+        <div>
+            <h1>CHRISTIAN CONGREGATION IN JAPAN</h1>
+            <p>Localidades</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('admin') }}">Painel</a>
+    </nav>
+</header>
+
+<main class="conteudo-localidades">
+
+    <div class="cabecalho-localidades">
+        <h1>Todas as Localidades</h1>
+        <p>Consulte os horários dos cultos por província e cidade.</p>
+    </div>
+
+    <div class="busca-localidade">
+        <input
+            type="text"
+            id="campoBusca"
+            placeholder="Buscar por cidade, província ou horário..."
+            onkeyup="filtrarLocalidades()"
+        >
+    </div>
+
+    {% for grupo in igrejas|groupby("estado") %}
+
+    <section class="grupo-estado">
+
+        <h2 class="titulo-estado">{{ grupo.grouper }}</h2>
+
+        <div class="grade-localidades">
+
+            {% for igreja in grupo.list %}
+
+            <a class="card-localidade link-card-localidade item-localidade"
+               data-texto="{{ igreja['estado'] }} {{ igreja['cidade'] }} {{ igreja['culto_domingo'] }} {{ igreja['culto_semana'] }} {{ igreja['culto_sabado'] }}"
+               href="{{ url_for('localidade', slug=igreja['slug']) }}">
+
+                <div class="localidade-card-topo">
+                    <h2>{{ igreja["cidade"] }}</h2>
+                    <span class="estado">{{ igreja["estado"] }}</span>
+                </div>
+
+                <div class="dados-localidade">
+
+                    {% if igreja["culto_domingo"] %}
+                    <p>
+                        <strong>Domingo:</strong>
+                        {{ igreja["culto_domingo"] }}
+                    </p>
+                    {% endif %}
+
+                    {% if igreja["culto_semana"] %}
+                    <p>
+                        <strong>Semana:</strong>
+                        {{ igreja["culto_semana"] }}
+                    </p>
+                    {% endif %}
+
+                    {% if igreja["culto_sabado"] %}
+                    <p>
+                        <strong>Sábado:</strong>
+                        {{ igreja["culto_sabado"] }}
+                    </p>
+                    {% endif %}
+
+                </div>
+
+            </a>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    {% else %}
+
+    <div class="card-localidade">
+        <h2>Nenhuma localidade cadastrada</h2>
+    </div>
+
+    {% endfor %}
+
+</main>
+
+<script>
+function filtrarLocalidades() {
+    const busca = document.getElementById("campoBusca").value.toLowerCase();
+    const itens = document.querySelectorAll(".item-localidade");
+    const grupos = document.querySelectorAll(".grupo-estado");
+
+    itens.forEach(function(item) {
+        const texto = item.dataset.texto.toLowerCase();
+
+        if (texto.includes(busca)) {
+            item.style.display = "block";
+        } else {
+            item.style.display = "none";
+        }
+    });
+
+    grupos.forEach(function(grupo) {
+        const visiveis = grupo.querySelectorAll(".item-localidade[style='display: block;'], .item-localidade:not([style])");
+
+        let temVisivel = false;
+
+        grupo.querySelectorAll(".item-localidade").forEach(function(item) {
+            if (item.style.display !== "none") {
+                temVisivel = true;
+            }
+        });
+
+        grupo.style.display = temVisivel ? "block" : "none";
+    });
+}
+</script>
+
+</body>
+</html>

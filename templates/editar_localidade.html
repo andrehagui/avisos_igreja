@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Localidade</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="topo">
+    <div class="logo">
+        <div class="icone">✝</div>
+        <div>
+            <h1>Editar Localidade</h1>
+            <p>Christian Congregation in Japan</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('admin_localidades') }}">Voltar</a>
+        <a href="{{ url_for('sair') }}">Sair</a>
+    </nav>
+</header>
+
+<main class="admin-container">
+    <section class="form-card">
+        <h2>Editar {{ igreja["cidade"] }}</h2>
+
+        <form method="POST">
+            <input
+                type="text"
+                name="estado"
+                value="{{ igreja['estado'] }}"
+                placeholder="Estado / Província"
+                required
+            >
+
+            <input
+                type="text"
+                name="cidade"
+                value="{{ igreja['cidade'] }}"
+                placeholder="Cidade"
+                required
+            >
+
+            <input
+                type="text"
+                name="slug"
+                value="{{ igreja['slug'] }}"
+                placeholder="Slug"
+                required
+            >
+
+            <input
+                type="text"
+                name="culto_domingo"
+                value="{{ igreja['culto_domingo'] or '' }}"
+                placeholder="Culto domingo"
+            >
+
+            <input
+                type="text"
+                name="culto_semana"
+                value="{{ igreja['culto_semana'] or '' }}"
+                placeholder="Culto semana"
+            >
+
+            <input
+                type="text"
+                name="culto_sabado"
+                value="{{ igreja['culto_sabado'] or '' }}"
+                placeholder="Culto sábado"
+            >
+
+            <input
+                type="text"
+                name="rjm"
+                value="{{ igreja['rjm'] or '' }}"
+                placeholder="RJM"
+            >
+
+            <textarea
+                name="endereco"
+                rows="4"
+                placeholder="Endereço"
+            >{{ igreja['endereco'] or '' }}</textarea>
+
+            <input
+                type="text"
+                name="cooperador"
+                value="{{ igreja['cooperador'] or '' }}"
+                placeholder="Cooperador"
+            >
+
+            <input
+                type="text"
+                name="jovens"
+                value="{{ igreja['jovens'] or '' }}"
+                placeholder="Cooperador de Jovens e Menores"
+            >
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </section>
+</main>
+
+</body>
+</html>

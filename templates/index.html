@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christian Congregation in Japan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="topo">
+    <div class="logo">
+        <div class="icone"></div>
+        <div>
+            <h1>CHRISTIAN CONGREGATION IN JAPAN</h1>
+            <p>クリスチャン・コングリゲーション・イン・ジャパン</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Início</a>
+
+        <a href="#avisos">Avisos</a>
+
+        <a href="#cultos">Cultos</a>
+
+        <a href="#sobre">Sobre Nós</a>
+
+        <a href="{{ url_for('localidades') }}">Localidades</a>
+
+        <a class="botao-area" href="{{ url_for('login') }}">
+            Área do cooperador
+        </a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-texto">
+        <span>BEM-VINDO!</span>
+        <h2>A Paz de Deus</h2>
+        <p>
+            “Deixo-vos a paz, a minha paz vos dou;<br>
+            não vo-la dou como o mundo a dá.<br>
+            Não se turbe o vosso coração, nem se atemorize.”
+        </p>
+        <strong>João 14:27</strong>
+    </div>
+
+    <div class="hero-img"></div>
+</section>
+
+<main class="conteudo">
+    <section class="avisos" id="avisos">
+        <div class="titulo-linha">
+            <h2> Avisos da Igreja</h2>
+            <a href="#avisos">Ver todos os avisos</a>
+        </div>
+
+        {% for aviso in avisos %}
+        <div class="card-aviso">
+            <div class="icone-card">📌</div>
+
+            <div class="texto-card">
+                <h3>{{ aviso["titulo"] }}</h3>
+                <p>{{ aviso["mensagem"] }}</p>
+                <span> {{ aviso["data"] }}</span>
+            </div>
+
+            <div class="categoria">{{ aviso["categoria"] }}</div>
+        </div>
+        {% else %}
+        <div class="card-aviso">
+            <div class="icone-card">ℹ️</div>
+
+            <div class="texto-card">
+                <h3>Nenhum aviso publicado</h3>
+                <p>No momento não há avisos cadastrados.</p>
+            </div>
+        </div>
+        {% endfor %}
+
+        <p class="info">ⓘ Os avisos mais recentes aparecem nesta página.</p>
+    </section>
+
+    <aside class="lateral">
+        <div class="box" id="cultos">
+    <h2> Cultos por Localidade</h2>
+
+    {% for igreja in igrejas %}
+    <div class="evento-localidade">
+        <div class="localidade-topo">
+            <h3> {{ igreja["cidade"] }}</h3>
+            <span>{{ igreja["estado"] }}</span>
+        </div>
+
+        <div class="horarios-culto">
+            {% if igreja["culto_domingo"] %}
+            <p><strong>Domingo:</strong> {{ igreja["culto_domingo"] }}</p>
+            {% endif %}
+
+            {% if igreja["culto_semana"] %}
+            <p><strong>Semana:</strong> {{ igreja["culto_semana"] }}</p>
+            {% endif %}
+
+            {% if igreja["culto_sabado"] %}
+            <p><strong>Sábado:</strong> {{ igreja["culto_sabado"] }}</p>
+            {% endif %}
+        </div>
+    </div>
+    {% else %}
+    <p>Nenhuma localidade cadastrada.</p>
+    {% endfor %}
+
+    <a class="link-mapa"href="{{ url_for('localidades') }}">Ver todas as localidades</a>
+</div>
+
+        <div class="box" id="localizacao">
+            <h2> Nossa Localização</h2>
+            <p>Endereço da igreja</p>
+            <a href="{{ url_for('localidades') }}" class="link-mapa">Ver todas as localidades</a>
+        </div>
+
+        <div class="box" id="sobre">
+            <h2>⛪ Sobre Nós</h2>
+            <p>Bem-vindo à Christian Congregation in Japan.</p>
+        </div>
+
+        <div class="whatsapp">
+            <div class="whatsapp-icone">🟢</div>
+            <div>
+                <h3>Compartilhe os avisos</h3>
+                <p>Compartilhe com seus irmãos pelo WhatsApp!</p>
+            </div>
+            <a href="https://wa.me/?text=Acesse%20os%20avisos%20da%20igreja" target="_blank">
+                Compartilhar
+            </a>
+        </div>
+    </aside>
+</main>
+
+<section id="sobre" class="box" style="margin:30px;">
+    <h2>Sobre Nós</h2>
+
+    <p>
+        A Christian Congregation in Japan é uma comunidade cristã
+        dedicada à pregação do Evangelho, comunhão entre os irmãos
+        e serviço a Deus em diversas localidades do Japão.
+    </p>
+</section>
+
+<footer>
+    <div>
+        <h3>CHRISTIAN CONGREGATION IN JAPAN</h3>
+        <p>クリスチャン・コングリゲーション・イン・ジャパン</p>
+    </div>
+
+    <p>
+        “Porque onde estiverem dois ou três reunidos em meu nome,<br>
+        ali estou eu no meio deles.”<br>
+        <strong>Mateus 18:20</strong>
+    </p>
+
+    <p>© 2026 Christian Congregation in Japan.<br>Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

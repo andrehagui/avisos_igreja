@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Cooperador</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="topo">
+    <div class="logo">
+        <div class="icone">✝</div>
+        <div>
+            <h1>Painel do Cooperador</h1>
+            <p>Christian Congregation in Japan</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Ver site</a>
+        <a href="{{ url_for('admin_localidades') }}">Localidades</a>
+        <a href="{{ url_for('sair') }}">Sair</a>
+    </nav>
+</header>
+
+<main class="admin-container">
+    <section class="form-card">
+        <h2>Novo Aviso</h2>
+
+        <form method="POST">
+            <input type="text" name="titulo" maxlength="100" placeholder="Título do aviso" required>
+
+            <select name="categoria" required>
+                <option value="GERAL">Geral</option>
+                <option value="JOVENS">Jovens</option>
+                <option value="SANTA CEIA">Santa Ceia</option>
+                <option value="ORQUESTRA">Orquestra</option>
+                <option value="COOPERADORES">Cooperadores</option>
+            </select>
+
+            <textarea name="mensagem" placeholder="Digite o aviso" rows="6" required></textarea>
+
+            <button type="submit">Publicar Aviso</button>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h2>Avisos Publicados <span class="contador">({{ avisos|length }})</span></h2>
+
+        {% for aviso in avisos %}
+        <div class="admin-aviso">
+            <h3> {{ aviso["titulo"] }}</h3>
+            <p>{{ aviso["mensagem"] }}</p>
+
+            <div class="admin-info">
+                <span>🏷 {{ aviso["categoria"] }}</span>
+                <span> {{ aviso["data"] }}</span>
+            </div>
+
+            <div class="acoes-admin">
+                <a class="btn-editar" href="{{ url_for('editar', id=aviso['id']) }}">
+                    ✏️ Editar
+                </a>
+
+                <form action="{{ url_for('apagar', id=aviso['id']) }}" method="POST"
+                      onsubmit="return confirm('Deseja apagar este aviso?')">
+                    <button type="submit" class="btn-apagar">🗑 Apagar</button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <p>Nenhum aviso publicado.</p>
+        {% endfor %}
+    </section>
+</main>
+
+</body>
+</html>

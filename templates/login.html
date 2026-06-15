@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Cooperador</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-page">
+
+<div class="login-box">
+    <div class="login-logo">
+        <div class="icone">✝</div>
+        <h2>Christian Congregation in Japan</h2>
+        <p>クリスチャン・コングリゲーション・イン・ジャパン</p>
+    </div>
+
+    <h1>Área do Cooperador</h1>
+    <p>Acesso restrito</p>
+
+    {% if erro %}
+    <div class="erro">{{ erro }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <input
+            type="password"
+            name="senha"
+            placeholder="Digite a senha"
+            autocomplete="off"
+            required
+        >
+
+        <button type="submit">Entrar</button>
+    </form>
+
+    <a href="{{ url_for('index') }}">← Voltar para página inicial</a>
+</div>
+
+</body>
+</html>

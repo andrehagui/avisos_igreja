@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ igreja["cidade"] }}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="topo">
+    <div class="logo">
+        <div class="icone">✝</div>
+
+        <div>
+            <h1>{{ igreja["cidade"] }}</h1>
+            <p>{{ igreja["estado"] }}</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('localidades') }}">Localidades</a>
+    </nav>
+</header>
+
+<main class="pagina-localidade">
+
+    <div class="card-detalhe-localidade">
+
+        <h1>{{ igreja["cidade"] }}</h1>
+
+        <span class="estado">
+            {{ igreja["estado"] }}
+        </span>
+
+        <h2>Horários dos Cultos</h2>
+
+        <p>
+            <strong>Domingo:</strong>
+            {{ igreja["culto_domingo"] or "Não informado" }}
+        </p>
+
+        <p>
+            <strong>Semana:</strong>
+            {{ igreja["culto_semana"] or "Não informado" }}
+        </p>
+
+        <p>
+            <strong>Sábado:</strong>
+            {{ igreja["culto_sabado"] or "Não informado" }}
+        </p>
+
+        <p>
+            <strong>RJM:</strong>
+            {{ igreja["rjm"] or "Não informado" }}
+        </p>
+
+        <h2>Endereço</h2>
+
+        <p>
+            {{ igreja["endereco"] or "Não informado" }}
+        </p>
+
+        <h2>Mapa</h2>
+
+            <a
+                href="https://www.google.com/maps/search/?api=1&query={{ igreja['endereco'] }}"
+                target="_blank"
+                class="btn-editar">
+
+                Abrir no Google Maps
+            </a>
+
+        <h2>Responsáveis</h2>
+
+        <p>
+            <strong>Cooperador:</strong>
+            {{ igreja["cooperador"] or "Não informado" }}
+        </p>
+
+        <p>
+            <strong>Jovens e Menores:</strong>
+            {{ igreja["jovens"] or "Não informado" }}
+        </p>
+
+        <div style="margin-top:30px;">
+            <a class="btn-editar"
+               href="{{ url_for('localidades') }}">
+                Voltar para Localidades
+            </a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

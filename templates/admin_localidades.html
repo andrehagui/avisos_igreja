@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Localidades</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="topo">
+    <div class="logo">
+        <div class="icone">✝</div>
+        <div>
+            <h1>Gerenciar Localidades</h1>
+            <p>Christian Congregation in Japan</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('admin') }}">Avisos</a>
+        <a href="{{ url_for('localidades') }}">Ver Localidades</a>
+        <a href="{{ url_for('sair') }}">Sair</a>
+    </nav>
+</header>
+
+<main class="admin-container">
+    <section class="form-card">
+        <h2>Nova Localidade</h2>
+
+        <form method="POST">
+            <input type="text" name="estado" placeholder="Estado / Província. Ex: Aichi-ken" required>
+
+            <input type="text" name="cidade" placeholder="Cidade. Ex: Toyohashi-shi" required>
+
+            <input type="text" name="slug" placeholder="Slug. Ex: toyohashi" required>
+
+            <input type="text" name="culto_domingo" placeholder="Culto domingo. Ex: Dom. 19:30">
+
+            <input type="text" name="culto_semana" placeholder="Culto semana. Ex: Qua. 20:00">
+
+            <input type="text" name="culto_sabado" placeholder="Culto sábado. Ex: Sáb. 20:00">
+
+            <input type="text" name="rjm" placeholder="RJM. Ex: Dom. 10:00">
+
+            <textarea name="endereco" rows="3" placeholder="Endereço"></textarea>
+
+            <input type="text" name="cooperador" placeholder="Cooperador">
+
+            <input type="text" name="jovens" placeholder="Cooperador de Jovens e Menores">
+
+            <button type="submit">Cadastrar Localidade</button>
+        </form>
+    </section>
+
+    <section class="form-card">
+        <h2>Localidades Cadastradas <span class="contador">({{ igrejas|length }})</span></h2>
+
+        {% for igreja in igrejas %}
+        <div class="admin-aviso">
+            <h3>{{ igreja["cidade"] }}</h3>
+
+            <div class="admin-info">
+                <span>{{ igreja["estado"] }}</span>
+                <span>Sábado: {{ igreja["culto_sabado"] or "Não informado" }}</span>
+            </div>
+
+            <p>
+                <strong>Endereço:</strong>
+                {{ igreja["endereco"] or "Não informado" }}
+            </p>
+
+            <div class="acoes-admin">
+                <a class="btn-editar"
+                href="{{ url_for('localidade', slug=igreja['slug']) }}">
+                    Ver página
+                </a>
+
+                <a class="btn-editar"
+                href="{{ url_for('editar_localidade', id=igreja['id']) }}">
+                    Editar
+                </a>
+
+                <form
+                    action="{{ url_for('apagar_localidade', id=igreja['id']) }}"
+                    method="POST"
+                    onsubmit="return confirm('Deseja apagar esta localidade?')"
+                >
+                    <button type="submit" class="btn-apagar">
+                        Apagar
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <p>Nenhuma localidade cadastrada.</p>
+        {% endfor %}
+    </section>
+</main>
+
+</body>
+</html>

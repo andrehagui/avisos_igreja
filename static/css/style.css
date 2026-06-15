@@ -1,0 +1,970 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #061a44;
+}
+
+/* TOPO */
+
+.topo {
+    background: linear-gradient(90deg, #061a44, #082b68);
+    color: white;
+    min-height: 90px;
+    padding: 0 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icone {
+    font-size: 42px;
+}
+
+.logo h1 {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.logo p {
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #9dccff;
+}
+
+.botao-area {
+    background: #0d62d6;
+    padding: 14px 22px;
+    border-radius: 10px;
+}
+
+.botao-area:hover {
+    background: #1e7cff;
+    color: white;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 400px;
+    display: flex;
+    background: white;
+    overflow: hidden;
+}
+
+.hero-texto {
+    width: 55%;
+    padding: 45px 65px;
+}
+
+.hero-texto span {
+    color: #0057d9;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.hero-texto h2 {
+    font-size: 72px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.hero-texto h2::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #0057d9;
+    margin-top: 12px;
+}
+
+.hero-texto p {
+    margin-top: 20px;
+    line-height: 1.7;
+    font-size: 18px;
+}
+
+.hero-texto strong {
+    color: #0057d9;
+    display: block;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.hero-img {
+    width: 45%;
+    background-image:
+        linear-gradient(
+            to right,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 0.15) 30%
+        ),
+        url("../img/igreja.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* CONTEÚDO */
+
+.conteudo {
+    max-width: 1400px;
+    margin: auto;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 30px;
+}
+
+.titulo-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.titulo-linha h2 {
+    font-size: 22px;
+}
+
+.titulo-linha a,
+.titulo-linha button {
+    background: #061a44;
+    color: white;
+    border: none;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.titulo-linha a:hover,
+.titulo-linha button:hover {
+    background: #0d62d6;
+}
+
+.card-aviso {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    margin-bottom: 16px;
+}
+
+.icone-card {
+    background: linear-gradient(180deg, #0057d9, #0a6cff);
+    color: white;
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.texto-card {
+    padding: 22px;
+}
+
+.texto-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.texto-card p {
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+.texto-card span {
+    display: inline-block;
+    margin-top: 15px;
+    color: #0057d9;
+    font-weight: bold;
+}
+
+.categoria {
+    margin: 20px;
+    height: fit-content;
+    background: #e9f1ff;
+    color: #0057d9;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.info {
+    background: #eaf3ff;
+    padding: 14px;
+    border-radius: 10px;
+    color: #004aad;
+}
+
+/* LATERAL */
+
+.box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    margin-bottom: 16px;
+}
+
+.box h2 {
+    margin-bottom: 20px;
+}
+
+.evento {
+    display: flex;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.evento:last-child {
+    border-bottom: none;
+}
+
+.data {
+    background: #f0f4fa;
+    border-radius: 8px;
+    min-width: 55px;
+    text-align: center;
+    padding: 8px;
+}
+
+.data strong {
+    font-size: 30px;
+}
+
+.evento h3 {
+    margin-bottom: 5px;
+}
+
+.link-mapa {
+    display: inline-block;
+    margin-top: 12px;
+    color: #0057d9;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* WHATSAPP */
+
+.whatsapp {
+    background: linear-gradient(90deg, #061a44, #08357d);
+    color: white;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.whatsapp-icone {
+    font-size: 28px;
+}
+
+.whatsapp a {
+    margin-left: auto;
+    background: white;
+    color: #061a44;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.whatsapp a:hover {
+    background: #eaf3ff;
+}
+
+/* FOOTER */
+
+footer {
+    background: linear-gradient(90deg, #061a44, #082b68);
+    color: white;
+    padding: 25px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+footer strong {
+    color: #4da3ff;
+}
+
+/* LOGIN */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-box {
+    width: 420px;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.login-logo {
+    margin-bottom: 20px;
+}
+
+.login-logo h2 {
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+.login-logo p {
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.login-box h1 {
+    margin-bottom: 8px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.login-box button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    background: #061a44;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login-box button:hover {
+    background: #0d62d6;
+}
+
+.login-box a {
+    display: block;
+    margin-top: 15px;
+    color: #0057d9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.erro {
+    color: #b00020;
+    background: #ffe8ec;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 12px;
+}
+
+/* ADMIN */
+
+.admin-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.form-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.form-card h2 {
+    margin-bottom: 10px;
+}
+
+.form-card input,
+.form-card select,
+.form-card textarea {
+    width: 100%;
+    padding: 14px;
+    margin-top: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-card textarea {
+    resize: vertical;
+}
+
+.form-card button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    background: #061a44;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.form-card button:hover {
+    background: #0d62d6;
+}
+
+.contador {
+    color: #0057d9;
+    font-size: 16px;
+}
+
+.admin-aviso {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+}
+
+.admin-aviso:last-child {
+    border-bottom: none;
+}
+
+.admin-aviso h3 {
+    margin-bottom: 8px;
+}
+
+.admin-aviso p {
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+.admin-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+    color: #0057d9;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.btn-apagar {
+    width: auto !important;
+    background: #d60000 !important;
+    padding: 10px 16px !important;
+    margin-top: 12px !important;
+}
+
+.btn-apagar:hover {
+    background: #a80000 !important;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 900px) {
+    .topo {
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        text-align: center;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .hero {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .hero-texto,
+    .hero-img {
+        width: 100%;
+    }
+
+    .hero-texto {
+        padding: 35px 25px;
+        text-align: center;
+    }
+
+    .hero-texto h2 {
+        font-size: 52px;
+    }
+
+    .hero-texto h2::after {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-img {
+        height: 280px;
+    }
+
+    .conteudo,
+    .admin-container {
+        grid-template-columns: 1fr;
+    }
+
+    .card-aviso {
+        grid-template-columns: 1fr;
+    }
+
+    .icone-card {
+        padding: 18px;
+    }
+
+    .categoria {
+        width: fit-content;
+    }
+
+    .titulo-linha {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .whatsapp {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .whatsapp a {
+        margin-left: 0;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 20px;
+        padding: 25px;
+    }
+}
+
+@media (max-width: 500px) {
+    .hero-texto h2 {
+        font-size: 42px;
+    }
+
+    .logo {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .login-box {
+        width: 100%;
+        padding: 28px;
+    }
+}
+.acoes-admin {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.acoes-admin form {
+    margin: 0;
+}
+
+.btn-editar,
+.btn-apagar {
+    width: 140px !important;
+    height: 45px !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+
+    box-sizing: border-box;
+}
+
+.btn-editar {
+    background: #0d62d6;
+    color: white;
+}
+
+.btn-editar:hover {
+    background: #0a4fb0;
+}
+
+.btn-apagar {
+    background: #d60000;
+    color: white;
+}
+
+.btn-apagar:hover {
+    background: #a80000;
+}
+.evento-localidade {
+    padding: 16px 0;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.evento-localidade:last-of-type {
+    border-bottom: none;
+}
+
+.localidade-topo {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.localidade-topo h3 {
+    font-size: 18px;
+}
+
+.localidade-topo span {
+    background: #e9f1ff;
+    color: #0057d9;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    height: fit-content;
+}
+
+.horarios-culto p {
+    margin-top: 6px;
+    line-height: 1.4;
+}
+.conteudo-localidades {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.conteudo-localidades h1 {
+    margin-bottom: 25px;
+}
+
+.card-localidade {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.estado {
+    display: inline-block;
+    background: #e9f1ff;
+    color: #0057d9;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.dados-localidade p {
+    margin-top: 8px;
+}
+.link-card-localidade {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.link-card-localidade:hover {
+    transform: translateY(-2px);
+}
+
+.pagina-localidade {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.card-detalhe-localidade {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.card-detalhe-localidade h1 {
+    margin-bottom: 10px;
+}
+
+.card-detalhe-localidade h2 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #061a44;
+}
+
+.card-detalhe-localidade p {
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+.card-detalhe-localidade .btn-editar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 240px;
+    height: 50px;
+
+    text-align: center;
+    text-decoration: none;
+
+    background: #0d62d6;
+    color: white;
+
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.card-detalhe-localidade .btn-editar:hover {
+    background: #0a4fb0;
+}
+
+/* LOCALIDADES - MOBILE FIRST */
+
+.conteudo-localidades {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.cabecalho-localidades {
+    margin-bottom: 20px;
+}
+
+.cabecalho-localidades h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.cabecalho-localidades p {
+    color: #4a5b7a;
+}
+
+.busca-localidade {
+    margin-bottom: 25px;
+}
+
+.busca-localidade input {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #cfd8e3;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+}
+
+.busca-localidade input:focus {
+    border-color: #0057d9;
+    box-shadow: 0 0 0 3px rgba(0, 87, 217, 0.12);
+}
+
+.grupo-estado {
+    margin-bottom: 35px;
+}
+
+.titulo-estado {
+    background: linear-gradient(90deg, #061a44, #082b68);
+    color: white;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.grade-localidades {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.card-localidade {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 0;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.link-card-localidade {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.link-card-localidade:hover {
+    transform: translateY(-2px);
+}
+
+.localidade-card-topo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.localidade-card-topo h2 {
+    font-size: 21px;
+}
+
+.estado {
+    display: inline-block;
+    width: fit-content;
+    background: #e9f1ff;
+    color: #0057d9;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin: 4px 0 10px 0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.dados-localidade p {
+    margin-top: 8px;
+    line-height: 1.4;
+}
+
+/* AJUSTES PARA IPHONE E CELULAR */
+
+@media (max-width: 700px) {
+    body {
+        -webkit-text-size-adjust: 100%;
+    }
+
+    .topo {
+        padding: 18px 16px;
+        padding-top: max(18px, env(safe-area-inset-top));
+    }
+
+    .logo h1 {
+        font-size: 15px;
+        line-height: 1.3;
+    }
+
+    .logo p {
+        font-size: 12px;
+    }
+
+    .icone {
+        font-size: 34px;
+    }
+
+    nav {
+        width: 100%;
+        gap: 10px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    .conteudo-localidades {
+        margin: 15px auto;
+        padding: 16px;
+    }
+
+    .cabecalho-localidades h1 {
+        font-size: 26px;
+    }
+
+    .busca-localidade input {
+        font-size: 16px;
+        padding: 15px;
+    }
+
+    .grade-localidades {
+        grid-template-columns: 1fr;
+    }
+
+    .titulo-estado {
+        font-size: 18px;
+        padding: 13px 15px;
+    }
+
+    .card-localidade {
+        padding: 18px;
+    }
+
+    .localidade-card-topo h2 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 430px) {
+    .topo {
+        text-align: center;
+    }
+
+    .logo {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    nav {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .cabecalho-localidades h1 {
+        font-size: 24px;
+    }
+
+    .card-localidade {
+        border-radius: 14px;
+    }
+}
