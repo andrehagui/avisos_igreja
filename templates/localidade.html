@@ -28,72 +28,80 @@
 
 <main class="pagina-localidade">
 
-    <div class="card-detalhe-localidade">
+    <section class="card-detalhe-localidade">
 
-        <h1>{{ igreja["cidade"] }}</h1>
+        <div class="localidade-hero">
+            <div class="localidade-icone">⛪</div>
 
-        <span class="estado">
-            {{ igreja["estado"] }}
-        </span>
+            <div>
+                <h1>{{ igreja["cidade"] }}</h1>
+                <span class="estado">{{ igreja["estado"] }}</span>
+            </div>
+        </div>
 
-        <h2>Horários dos Cultos</h2>
+        <div class="bloco-info">
+            <h2>📍 Endereço</h2>
 
-        <p>
-            <strong>Domingo:</strong>
-            {{ igreja["culto_domingo"] or "Não informado" }}
-        </p>
+            <p>
+                {{ igreja["endereco"] or "Não informado" }}
+            </p>
 
-        <p>
-            <strong>Semana:</strong>
-            {{ igreja["culto_semana"] or "Não informado" }}
-        </p>
+            {% if igreja["endereco"] and igreja["endereco"] != "Consultar o Ministério" %}
+                <div class="botoes-mapa">
+                    <a
+                        href="https://www.google.com/maps/search/?api=1&query={{ igreja['endereco'] | urlencode }}"
+                        target="_blank"
+                        class="btn-mapa">
+                        Google Maps
+                    </a>
 
-        <p>
-            <strong>Sábado:</strong>
-            {{ igreja["culto_sabado"] or "Não informado" }}
-        </p>
+                    <a
+                        href="http://maps.apple.com/?q={{ igreja['endereco'] | urlencode }}"
+                        target="_blank"
+                        class="btn-mapa btn-apple">
+                        Apple Maps
+                    </a>
+                </div>
+            {% else %}
+                <p class="aviso-endereco">
+                    Este local utiliza salão alternativo. Favor consultar o ministério.
+                </p>
+            {% endif %}
+        </div>
 
-        <p>
-            <strong>RJM:</strong>
-            {{ igreja["rjm"] or "Não informado" }}
-        </p>
+        <div class="bloco-info">
+            <h2>⛪ Horários dos Cultos</h2>
 
-        <h2>Endereço</h2>
+            <div class="grade-horarios">
+                <p><strong>Domingo</strong><br>{{ igreja["culto_domingo"] or "Não informado" }}</p>
+                <p><strong>Semana</strong><br>{{ igreja["culto_semana"] or "Não informado" }}</p>
+                <p><strong>Sábado</strong><br>{{ igreja["culto_sabado"] or "Não informado" }}</p>
+                <p><strong>RJM</strong><br>{{ igreja["rjm"] or "Não informado" }}</p>
+            </div>
+        </div>
 
-        <p>
-            {{ igreja["endereco"] or "Não informado" }}
-        </p>
+        <div class="bloco-info">
+            <h2>👥 Responsáveis</h2>
 
-        <h2>Mapa</h2>
+            <p>
+                <strong>Cooperador:</strong>
+                {{ igreja["cooperador"] or "Não informado" }}
+            </p>
 
-            <a
-                href="https://www.google.com/maps/search/?api=1&query={{ igreja['endereco'] }}"
-                target="_blank"
-                class="btn-editar">
+            <p>
+                <strong>Jovens e Menores:</strong>
+                {{ igreja["jovens"] or "Não informado" }}
+            </p>
+        </div>
 
-                Abrir no Google Maps
-            </a>
-
-        <h2>Responsáveis</h2>
-
-        <p>
-            <strong>Cooperador:</strong>
-            {{ igreja["cooperador"] or "Não informado" }}
-        </p>
-
-        <p>
-            <strong>Jovens e Menores:</strong>
-            {{ igreja["jovens"] or "Não informado" }}
-        </p>
-
-        <div style="margin-top:30px;">
+        <div class="acoes-localidade">
             <a class="btn-editar"
                href="{{ url_for('localidades') }}">
                 Voltar para Localidades
             </a>
         </div>
 
-    </div>
+    </section>
 
 </main>
 
