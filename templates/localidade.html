@@ -67,9 +67,15 @@
                     {% endfor %}
                 </div>
             {% else %}
+                {% if igreja["endereco"] and igreja["endereco"] != "Consultar o Ministério" %}
+                <p class="aviso-endereco">
+                    Coordenadas não cadastradas. Favor consultar o ministério antes de se deslocar.
+                </p>
+                {% else %}
                 <p class="aviso-endereco">
                     Este local utiliza salão alternativo. Favor consultar o ministério.
                 </p>
+                {% endif %}
             {% endif %}
         </div>
 
