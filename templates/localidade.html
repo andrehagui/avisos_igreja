@@ -46,21 +46,25 @@
                 {{ igreja["endereco"] or "Não informado" }}
             </p>
 
-            {% if igreja["endereco"] and igreja["endereco"] != "Consultar o Ministério" %}
+            {% if igreja["mapa_links"] %}
                 <div class="botoes-mapa">
+                    {% for mapa in igreja["mapa_links"] %}
                     <a
-                        href="https://www.google.com/maps/search/?api=1&query={{ igreja['endereco'] | urlencode }}"
+                        href="{{ mapa['google'] }}"
                         target="_blank"
+                        rel="noopener"
                         class="btn-mapa">
-                        Google Maps
+                        Google Maps{% if igreja["mapa_links"]|length > 1 %} - {{ mapa["rotulo"] }}{% endif %}
                     </a>
 
                     <a
-                        href="http://maps.apple.com/?q={{ igreja['endereco'] | urlencode }}"
+                        href="{{ mapa['apple'] }}"
                         target="_blank"
+                        rel="noopener"
                         class="btn-mapa btn-apple">
-                        Apple Maps
+                        Apple Maps{% if igreja["mapa_links"]|length > 1 %} - {{ mapa["rotulo"] }}{% endif %}
                     </a>
+                    {% endfor %}
                 </div>
             {% else %}
                 <p class="aviso-endereco">

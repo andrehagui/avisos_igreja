@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 import sqlite3
 from datetime import datetime
+import re
+from urllib.parse import quote_plus
 
 app = Flask(__name__)
 
@@ -13,6 +15,70 @@ def conectar():
     conn = sqlite3.connect("avisos.db")
     conn.row_factory = sqlite3.Row
     return conn
+
+
+def endereco_disponivel(endereco):
+    return endereco and endereco.strip().lower() != "consultar o ministério"
+
+
+def endereco_tem_municipio(endereco):
+    return bool(re.search(r"\b[\wŌŪōū-]+-(shi|cho|chō|machi|gun)\b", endereco, re.IGNORECASE))
+
+
+def montar_consulta_mapa(igreja, endereco):
+    partes = [endereco.strip()]
+
+    cidade = igreja["cidade"]
+    estado = igreja["estado"]
+
+    if cidade and cidade not in endereco and not endereco_tem_municipio(endereco):
+        partes.append(cidade)
+
+    if estado and estado not in endereco:
+        partes.append(estado)
+
+    partes.append("Japan")
+
+    return ", ".join(partes)
+
+
+def montar_links_mapa(igreja):
+    endereco = igreja["endereco"]
+
+    if not endereco_disponivel(endereco):
+        return []
+
+    enderecos = [
+        parte.strip()
+        for parte in endereco.split(" / ")
+        if parte.strip()
+    ]
+
+    links = []
+
+    for indice, endereco_item in enumerate(enderecos, start=1):
+        consulta = montar_consulta_mapa(igreja, endereco_item)
+        consulta_url = quote_plus(consulta)
+        rotulo = "Endereço" if len(enderecos) == 1 else f"Local {indice}"
+
+        links.append({
+            "rotulo": rotulo,
+            "consulta": consulta,
+            "google": f"https://www.google.com/maps/search/?api=1&query={consulta_url}",
+            "apple": f"https://maps.apple.com/?q={consulta_url}"
+        })
+
+    return links
+
+
+def preparar_igreja(igreja):
+    dados = dict(igreja)
+    dados["mapa_links"] = montar_links_mapa(igreja)
+    return dados
+
+
+def preparar_igrejas(igrejas):
+    return [preparar_igreja(igreja) for igreja in igrejas]
 
 
 def criar_banco():
@@ -458,6 +524,8 @@ def index():
 
     conn.close()
 
+    igrejas = preparar_igrejas(igrejas)
+
     return render_template(
         "index.html",
         avisos=avisos,
@@ -619,6 +687,8 @@ def localidades():
 
     conn.close()
 
+    igrejas = preparar_igrejas(igrejas)
+
     return render_template(
         "localidades.html",
         igrejas=igrejas
@@ -638,6 +708,8 @@ def localidade(slug):
 
     if not igreja:
         return redirect(url_for("localidades"))
+
+    igreja = preparar_igreja(igreja)
 
     return render_template(
         "localidade.html",
