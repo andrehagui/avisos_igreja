@@ -64,7 +64,7 @@ def montar_links_mapa(igreja):
         links.append({
             "rotulo": rotulo,
             "consulta": consulta,
-            "google": f"https://www.google.com/maps/search/?api=1&query={consulta_url}",
+            "google": f"https://www.google.com/maps/dir/?api=1&destination={consulta_url}",
             "apple": f"https://maps.apple.com/?q={consulta_url}"
         })
 
