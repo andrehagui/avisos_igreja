@@ -21,6 +21,10 @@ def endereco_disponivel(endereco):
     return endereco and endereco.strip().lower() != "consultar o ministério"
 
 
+def coordenadas_disponiveis(igreja):
+    return igreja["latitude"] and igreja["longitude"]
+
+
 def endereco_tem_municipio(endereco):
     return bool(re.search(r"\b[\wŌŪōū-]+-(shi|cho|chō|machi|gun)\b", endereco, re.IGNORECASE))
 
@@ -44,15 +48,28 @@ def montar_consulta_mapa(igreja, endereco):
 
 def montar_links_mapa(igreja):
     endereco = igreja["endereco"]
+    tem_coordenadas = coordenadas_disponiveis(igreja)
 
-    if not endereco_disponivel(endereco):
+    if not tem_coordenadas and not endereco_disponivel(endereco):
         return []
 
     enderecos = [
         parte.strip()
-        for parte in endereco.split(" / ")
+        for parte in (endereco or "").split(" / ")
         if parte.strip()
     ]
+
+    if tem_coordenadas:
+        destino = f"{igreja['latitude']},{igreja['longitude']}"
+        destino_url = quote_plus(destino)
+        consulta = montar_consulta_mapa(igreja, enderecos[0]) if enderecos else destino
+
+        return [{
+            "rotulo": "Endereço",
+            "consulta": consulta,
+            "google": f"https://www.google.com/maps/dir/?api=1&destination={destino_url}",
+            "apple": f"https://maps.apple.com/?ll={destino_url}&q={destino_url}"
+        }]
 
     links = []
 
@@ -79,6 +96,14 @@ def preparar_igreja(igreja):
 
 def preparar_igrejas(igrejas):
     return [preparar_igreja(igreja) for igreja in igrejas]
+
+
+def garantir_coluna(conn, tabela, coluna, tipo):
+    colunas = conn.execute(f"PRAGMA table_info({tabela})").fetchall()
+    nomes = [coluna_existente["name"] for coluna_existente in colunas]
+
+    if coluna not in nomes:
+        conn.execute(f"ALTER TABLE {tabela} ADD COLUMN {coluna} {tipo}")
 
 
 def criar_banco():
@@ -113,10 +138,15 @@ def criar_banco():
             culto_sabado TEXT,
             rjm TEXT,
             endereco TEXT,
+            latitude TEXT,
+            longitude TEXT,
             cooperador TEXT,
             jovens TEXT
         )
     """)
+
+    garantir_coluna(conn, "igrejas", "latitude", "TEXT")
+    garantir_coluna(conn, "igrejas", "longitude", "TEXT")
 
     conn.commit()
     conn.close()
@@ -731,6 +761,8 @@ def admin_localidades():
         culto_sabado = request.form["culto_sabado"].strip()
         rjm = request.form["rjm"].strip()
         endereco = request.form["endereco"].strip()
+        latitude = request.form.get("latitude", "").strip()
+        longitude = request.form.get("longitude", "").strip()
         cooperador = request.form["cooperador"].strip()
         jovens = request.form["jovens"].strip()
 
@@ -747,10 +779,12 @@ def admin_localidades():
                 culto_sabado,
                 rjm,
                 endereco,
+                latitude,
+                longitude,
                 cooperador,
                 jovens
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             estado,
             cidade,
@@ -760,6 +794,8 @@ def admin_localidades():
             culto_sabado,
             rjm,
             endereco,
+            latitude,
+            longitude,
             cooperador,
             jovens
         ))
@@ -810,6 +846,8 @@ def editar_localidade(id):
         culto_sabado = request.form["culto_sabado"].strip()
         rjm = request.form["rjm"].strip()
         endereco = request.form["endereco"].strip()
+        latitude = request.form.get("latitude", "").strip()
+        longitude = request.form.get("longitude", "").strip()
         cooperador = request.form["cooperador"].strip()
         jovens = request.form["jovens"].strip()
 
@@ -823,6 +861,8 @@ def editar_localidade(id):
                 culto_sabado = ?,
                 rjm = ?,
                 endereco = ?,
+                latitude = ?,
+                longitude = ?,
                 cooperador = ?,
                 jovens = ?
             WHERE id = ?
@@ -835,6 +875,8 @@ def editar_localidade(id):
             culto_sabado,
             rjm,
             endereco,
+            latitude,
+            longitude,
             cooperador,
             jovens,
             id

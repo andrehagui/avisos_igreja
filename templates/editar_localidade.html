@@ -87,6 +87,22 @@
             >{{ igreja['endereco'] or '' }}</textarea>
 
             <input
+                type="number"
+                step="any"
+                name="latitude"
+                value="{{ igreja['latitude'] or '' }}"
+                placeholder="Latitude. Ex: 34.762345"
+            >
+
+            <input
+                type="number"
+                step="any"
+                name="longitude"
+                value="{{ igreja['longitude'] or '' }}"
+                placeholder="Longitude. Ex: 137.391234"
+            >
+
+            <input
                 type="text"
                 name="cooperador"
                 value="{{ igreja['cooperador'] or '' }}"

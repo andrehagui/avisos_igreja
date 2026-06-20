@@ -45,6 +45,10 @@
 
             <textarea name="endereco" rows="3" placeholder="Endereço"></textarea>
 
+            <input type="number" step="any" name="latitude" placeholder="Latitude. Ex: 34.762345">
+
+            <input type="number" step="any" name="longitude" placeholder="Longitude. Ex: 137.391234">
+
             <input type="text" name="cooperador" placeholder="Cooperador">
 
             <input type="text" name="jovens" placeholder="Cooperador de Jovens e Menores">
@@ -69,6 +73,13 @@
                 <strong>Endereço:</strong>
                 {{ igreja["endereco"] or "Não informado" }}
             </p>
+
+            {% if igreja["latitude"] and igreja["longitude"] %}
+            <p>
+                <strong>Coordenadas:</strong>
+                {{ igreja["latitude"] }}, {{ igreja["longitude"] }}
+            </p>
+            {% endif %}
 
             <div class="acoes-admin">
                 <a class="btn-editar"
