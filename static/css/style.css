@@ -235,6 +235,11 @@ nav a:hover {
 
 /* LATERAL */
 
+.lateral {
+    display: grid;
+    gap: 16px;
+}
+
 .box {
     background: white;
     padding: 25px;
@@ -340,7 +345,8 @@ footer strong {
 }
 
 .login-box {
-    width: 420px;
+    width: 100%;
+    max-width: 420px;
     background: white;
     padding: 40px;
     border-radius: 12px;
@@ -352,8 +358,9 @@ footer strong {
     margin-bottom: 20px;
 }
 
-.login-logo h2 {
+.login-logo .nome-igreja {
     font-size: 18px;
+    font-weight: 800;
     margin-top: 8px;
 }
 
@@ -366,10 +373,18 @@ footer strong {
     margin-bottom: 8px;
 }
 
+.login-box label {
+    display: block;
+    margin-top: 18px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .login-box input {
     width: 100%;
     padding: 14px;
-    margin-top: 15px;
+    margin-top: 8px;
     border: 1px solid #ccc;
     border-radius: 8px;
 }
@@ -388,6 +403,13 @@ footer strong {
 
 .login-box button:hover {
     background: #0d62d6;
+}
+
+.login-box input:focus-visible,
+.login-box button:focus-visible,
+.login-box a:focus-visible {
+    outline: 3px solid #9dccff;
+    outline-offset: 3px;
 }
 
 .login-box a {

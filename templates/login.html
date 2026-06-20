@@ -10,8 +10,8 @@
 
 <div class="login-box">
     <div class="login-logo">
-        <div class="icone">✝</div>
-        <h2>Christian Congregation in Japan</h2>
+        <div class="icone" aria-hidden="true">✝</div>
+        <p class="nome-igreja">Christian Congregation in Japan</p>
         <p>クリスチャン・コングリゲーション・イン・ジャパン</p>
     </div>
 
@@ -19,15 +19,18 @@
     <p>Acesso restrito</p>
 
     {% if erro %}
-    <div class="erro">{{ erro }}</div>
+    <div class="erro" role="alert">{{ erro }}</div>
     {% endif %}
 
     <form method="POST">
+        <label for="senha">Senha de acesso</label>
         <input
+            id="senha"
             type="password"
             name="senha"
             placeholder="Digite a senha"
-            autocomplete="off"
+            autocomplete="current-password"
+            autofocus
             required
         >
 

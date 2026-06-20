@@ -470,7 +470,7 @@ def login():
 
     if request.method == "POST":
 
-        senha = request.form["senha"]
+        senha = request.form.get("senha", "")
 
         if senha == ADMIN_PASSWORD:
             session["admin"] = True
