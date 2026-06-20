@@ -50,7 +50,7 @@ def montar_links_mapa(igreja):
     endereco = igreja["endereco"]
     tem_coordenadas = coordenadas_disponiveis(igreja)
 
-    if not tem_coordenadas:
+    if not tem_coordenadas and not endereco_disponivel(endereco):
         return []
 
     enderecos = [
@@ -59,16 +59,33 @@ def montar_links_mapa(igreja):
         if parte.strip()
     ]
 
-    destino = f"{igreja['latitude']},{igreja['longitude']}"
-    destino_url = quote_plus(destino)
-    consulta = montar_consulta_mapa(igreja, enderecos[0]) if enderecos else destino
+    if tem_coordenadas:
+        destino = f"{igreja['latitude']},{igreja['longitude']}"
+        destino_url = quote_plus(destino)
+        consulta = montar_consulta_mapa(igreja, enderecos[0]) if enderecos else destino
 
-    return [{
-        "rotulo": "Endereço",
-        "consulta": consulta,
-        "google": f"https://www.google.com/maps/dir/?api=1&destination={destino_url}",
-        "apple": f"https://maps.apple.com/?ll={destino_url}&q={destino_url}"
-    }]
+        return [{
+            "rotulo": "Endereço",
+            "consulta": consulta,
+            "google": f"https://www.google.com/maps/dir/?api=1&destination={destino_url}",
+            "apple": f"https://maps.apple.com/?ll={destino_url}&q={destino_url}"
+        }]
+
+    links = []
+
+    for indice, endereco_item in enumerate(enderecos, start=1):
+        consulta = montar_consulta_mapa(igreja, endereco_item)
+        consulta_url = quote_plus(consulta)
+        rotulo = "Endereço" if len(enderecos) == 1 else f"Local {indice}"
+
+        links.append({
+            "rotulo": rotulo,
+            "consulta": consulta,
+            "google": f"https://www.google.com/maps/dir/?api=1&destination={consulta_url}",
+            "apple": f"https://maps.apple.com/?q={consulta_url}"
+        })
+
+    return links
 
 
 def preparar_igreja(igreja):
